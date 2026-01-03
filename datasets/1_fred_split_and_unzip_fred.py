@@ -2,10 +2,10 @@ import zipfile
 from pathlib import Path
 
 # Config
-RAW_ZIP_DIR = Path("fred_raw_zips")  # original zip folder
-OUT_TRAIN = Path("train")
-OUT_TEST  = Path("test")
-OUT_VAL   = Path("val")
+RAW_ZIP_DIR = Path("./FRED/fred_raw_zips")  # original zip folder
+OUT_TRAIN = Path("./FRED/fred_raw_unzip/train")
+OUT_TEST  = Path("./FRED/fred_raw_unzip/test")
+OUT_VAL   = Path("./FRED/fred_raw_unzip/val")
 
 TRAIN_RANGE = range(0, 100)     # 0 ~ 99
 TEST_RANGE  = range(100, 200)   # 100 ~ 199

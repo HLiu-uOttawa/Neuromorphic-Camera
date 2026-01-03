@@ -2,10 +2,10 @@ from pathlib import Path
 import shutil
 import csv
 
-FRED_ROOT = Path(".")
+FRED_ROOT = Path("./FRED/fred_raw_unzip/")
 
-OUT_RGB = Path("fred_for_yolo/fred_yolo_rgb")
-OUT_EVT = Path("fred_for_yolo/FRED_yolo_event")
+OUT_RGB = Path("./FRED/fred_for_yolo/fred_yolo_rgb")
+OUT_EVT = Path("./FRED/fred_for_yolo/FRED_yolo_event")
 
 RGB_IMG_DIRNAME = "RGB"                 # RGB folder: .../RGB/*.jpg
 EVT_IMG_DIRNAME = Path("Event/Frames")  # Event folder: .../Event/Frames/*.png
