@@ -1,16 +1,22 @@
 # Neuromorphic-Camera
 ## 1. Prerequisites
-py -o
-py -3.10 -m venv venv310
-.\venv310\Scripts\Activate.ps1
-(venv310) PS D:\GITHUB.COM\Neuromorphic-Camera> python --version
+py -0
+py -3.10 -m venv .venv
+.venv\Scripts\Activate.ps1
+(.venv) PS D:\GITHUB.COM\Neuromorphic-Camera> python --version
 Python 3.10.11
 
 python.exe -m pip install --upgrade pip
-pip install dv h5py opencv-python tqdm
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+pip install dv h5py opencv-python tqdm 
+pip install -U ultralytics
 
 
-python .\datasets\converter.py
+cd .\datasets\
+python .\1_fred_split_and_unzip_fred.py
+<!-- python .\datasets\converter.py -->
+
+yolo detect train data=FRED/fred_for_yolo/fred_yolo_rgb/data.yaml model=yolov8n.pt imgsz=640 epochs=10 batch=16 fraction=0.1 device=0
 
 ## 2. Hardware
 

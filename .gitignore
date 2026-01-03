@@ -207,7 +207,6 @@ marimo/_lsp/
 __marimo__/
 
 .venv/
-venv310/
 runs/
 # 1. Ignore everything under datasets
 datasets/*
