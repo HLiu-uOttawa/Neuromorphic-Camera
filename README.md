@@ -16,13 +16,16 @@ cd .\datasets\
 python .\1_fred_split_and_unzip_fred.py
 <!-- python .\datasets\converter.py -->
 
-yolo detect train data=FRED/fred_for_yolo/fred_yolo_rgb/data.yaml model=yolov8n.pt imgsz=640 epochs=10 batch=16 fraction=0.1 device=0
+yolo detect train data="D:/GITHUB.COM/Neuromorphic-Camera/datasets/FRED/fred_for_yolo/fred_yolo_rgb/data.yaml" model=yolov8n.pt imgsz=640 epochs=10 batch=16 fraction=0.1 device=0
+
 
 ## 2. Hardware
 
 [inivation](https://inivation.com/) 
 [DAVIS 346](https://inivation.com/wp-content/uploads/2019/08/DAVIS346.pdf)
 
+AEDAT File Formats
+https://docs.inivation.com/software/software-advanced-usage/file-formats/index.html
 
 ## 3. Datasets
 
