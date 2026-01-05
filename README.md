@@ -19,6 +19,10 @@ python .\1_fred_split_and_unzip_fred.py
 yolo detect train data="D:/GITHUB.COM/Neuromorphic-Camera/datasets/FRED/fred_for_yolo/fred_yolo_rgb/data.yaml" model=yolov8n.pt imgsz=640 epochs=10 batch=16 fraction=0.1 device=0
 
 
+Train event: 
+yolo detect train data=datasets/FRED/fred_for_yolo/fred_yolo_event/data.yaml model=yolov8n.pt imgsz=640 epochs=50 batch=16 fraction=1 device=0
+
+
 ## 2. Hardware
 
 [inivation](https://inivation.com/) 
