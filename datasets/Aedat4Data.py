@@ -1,5 +1,6 @@
 # Aedat4Data.py
 import numpy as np
+import h5py
 from tqdm import tqdm
 from dv import AedatFile
 
@@ -71,6 +72,63 @@ class Aedat4Data:
             dtype=[("t", "int64"), ("x", "int16"), ("y", "int16"), ("p", "int8")],
         )
 
+    def save_to_hdf5(
+            h5_path,
+            events_np,
+            frames,
+    ):
+        """
+        Save AEDAT4 events + frames into HDF5.
+
+        Args:
+            h5_path (str)
+            events_np: structured np.ndarray with fields (t, x, y, p)
+            frames: list of dicts from read_frames()
+        """
+
+        with h5py.File(h5_path, "w") as f:
+            # -------------------
+            # Events
+            # -------------------
+            grp_e = f.create_group("events")
+            grp_e.create_dataset("t", data=events_np["t"], compression="gzip")
+            grp_e.create_dataset("x", data=events_np["x"], compression="gzip")
+            grp_e.create_dataset("y", data=events_np["y"], compression="gzip")
+            grp_e.create_dataset("p", data=events_np["p"], compression="gzip")
+
+            # -------------------
+            # Frames
+            # -------------------
+            grp_f = f.create_group("frames")
+
+            images = np.stack([fr["image"] for fr in frames], axis=0)
+            timestamps = np.array([fr["timestamp"] for fr in frames], dtype=np.int64)
+            exposure = np.array(
+                [-1 if fr["exposure"] is None else fr["exposure"] for fr in frames],
+                dtype=np.int32,
+            )
+
+            grp_f.create_dataset(
+                "images", data=images, compression="gzip", chunks=True
+            )
+            grp_f.create_dataset("timestamps", data=timestamps)
+            grp_f.create_dataset("exposure", data=exposure)
+
+            # -------------------
+            # Meta
+            # -------------------
+            grp_m = f.create_group("meta")
+            # grp_m.attrs["sensor_name"] = sensor_name
+            # grp_m.attrs["created_by"] = created_by
+            grp_m.attrs["time_unit"] = "microseconds"
+            grp_m.attrs["num_events"] = len(events_np)
+            grp_m.attrs["num_frames"] = len(frames)
+            grp_m.attrs["height"] = images.shape[1]
+            grp_m.attrs["width"] = images.shape[2]
+            grp_m.attrs["channels"] = images.shape[3]
+
+        print(f"[OK] Saved to {h5_path}")
+
     def read_frames(self, max_frames=None):
         """
         Read APS frame stream.
@@ -112,6 +170,17 @@ if __name__ == '__main__':
     aedat4file = './AreaXO/ottawa_8.aedat4'
     aedat = Aedat4Data(aedat4file, auto_load=True)
     aedat.summary()
+
+    events_np = aedat.read_all_events()
+    frames = aedat.read_frames()
+
+    aedat.save_to_hdf5(
+        "ottawa_8.h5",
+        events_np,
+        frames,
+    )
+
+    exit()
 
     frames = aedat.read_frames(max_frames=2)
     print("\nSample frame info:")

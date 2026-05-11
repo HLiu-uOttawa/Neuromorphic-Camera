@@ -8,9 +8,8 @@ Python 3.10.11
 
 python.exe -m pip install --upgrade pip
 pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
-pip install dv h5py opencv-python tqdm 
-pip install -U ultralytics
-
+pip install dv h5py opencv-python tqdm h5py
+pip install -U ultralytics 
 
 cd .\datasets\
 python .\1_fred_split_and_unzip_fred.py
